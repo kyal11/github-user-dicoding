@@ -2,19 +2,13 @@ package com.dicoding.githubuser.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class GithubResponse(
+data class FollowerResponse(
 
-	@field:SerializedName("total_count")
-	val totalCount: Int? = null,
-
-	@field:SerializedName("incomplete_results")
-	val incompleteResults: Boolean? = null,
-
-	@field:SerializedName("items")
-	val items: List<ItemsItem?>? = null
+	@field:SerializedName("FollowerResponse")
+	val followerResponse: List<FollowerResponseItem?>? = null
 )
 
-data class ItemsItem(
+data class FollowerResponseItem(
 
 	@field:SerializedName("gists_url")
 	val gistsUrl: String? = null,
@@ -42,9 +36,6 @@ data class ItemsItem(
 
 	@field:SerializedName("subscriptions_url")
 	val subscriptionsUrl: String? = null,
-
-	@field:SerializedName("score")
-	val score: Any? = null,
 
 	@field:SerializedName("received_events_url")
 	val receivedEventsUrl: String? = null,
