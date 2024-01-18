@@ -10,7 +10,7 @@ import retrofit2.http.*
 interface ApiService {
     @GET("search/users")
     fun getSearchUsers(
-        @Query("q") usename: String
+        @Query("q") username: String
     ): Call<SearchResponse>
 
     @GET("users/{username}")
