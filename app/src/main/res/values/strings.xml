@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">GithubUser</string>
     <string name="username">Username</string>
+
+    <string name="this_activity">Menu Activity</string>
+    <string name="searchbar_text">Search username</string>
 </resources>

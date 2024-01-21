@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.githubuser.data.response.ItemsItem
@@ -35,4 +36,5 @@ class UsersAdapter (private val listUser: ArrayList<ItemsItem>) : RecyclerView.A
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listUser[position])
     }
+
 }
