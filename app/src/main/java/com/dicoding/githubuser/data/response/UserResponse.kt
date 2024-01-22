@@ -8,8 +8,6 @@ data class UserResponse(
     var username: String,
     var name: String,
     var avatar: String,
-    var company: String,
-    var lcoation: String,
     var repository: Int,
     var follower: Int,
     var following: Int

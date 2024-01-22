@@ -1,6 +1,7 @@
 package com.dicoding.githubuser.ui
 
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubuser.adapter.UsersAdapter
+import com.dicoding.githubuser.data.response.ItemsItem
 import com.dicoding.githubuser.databinding.ActivityMainBinding
 import com.dicoding.githubuser.viewmodel.MainViewModel
 
@@ -49,9 +51,21 @@ class MainActivity : AppCompatActivity() {
             }
             binding.rvUser.setHasFixedSize(true)
             binding.rvUser.adapter = adapter
+
+            adapter.setOnItemClickCallback(object : UsersAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: ItemsItem) {
+                    selectUser(data)
+                }
+            })
         }
     }
 
+    fun selectUser(user: ItemsItem) {
+        Log.d("UserSelected", "Selected user: ${user.login}")
+        val detailActivity = Intent(this, UserDetailActivity::class.java)
+        detailActivity.putExtra(UserDetailActivity.DETAIL_USER, user.login)
+        startActivity(detailActivity)
+    }
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }

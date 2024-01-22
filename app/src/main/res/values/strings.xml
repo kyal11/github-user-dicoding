@@ -4,4 +4,11 @@
 
     <string name="this_activity">Menu Activity</string>
     <string name="searchbar_text">Search username</string>
+    <string name="name">Name</string>
+    <string name="follower">Followers</string>
+    <string name="following">Following</string>
+    <string name="repository">Repository</string>
+    <string name="following_total">following total</string>
+    <string name="follower_total">follower_total</string>
+
 </resources>
