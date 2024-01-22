@@ -1,17 +1,27 @@
 package com.dicoding.githubuser.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.githubuser.data.response.ItemsItem
 import com.dicoding.githubuser.databinding.ItemUserBinding
 
-class UsersAdapter (private val listUser: ArrayList<ItemsItem>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
+class UsersAdapter : ListAdapter<ItemsItem,UsersAdapter.ViewHolder>(DIFF_CALLBACK){
 
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
+            override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
     class ViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: ItemsItem) {
             binding.apply {
@@ -25,16 +35,13 @@ class UsersAdapter (private val listUser: ArrayList<ItemsItem>) : RecyclerView.A
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-       val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return listUser.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listUser[position])
+        val user = getItem(position)
+        holder.bind(user)
     }
 
 }
