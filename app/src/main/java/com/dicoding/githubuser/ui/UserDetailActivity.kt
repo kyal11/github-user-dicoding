@@ -39,6 +39,7 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvName.text = detailUser?.name
             binding.tvTotalFollower.text = detailUser?.followers.toString()
             binding.tvTotalFollowing.text = detailUser?.following.toString()
+            binding.tvTotalRepository.text = detailUser?.publicRepos.toString()
         }
     }
     private fun showLoading(isLoading: Boolean) {

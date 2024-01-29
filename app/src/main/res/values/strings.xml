@@ -8,7 +8,10 @@
     <string name="follower">Followers</string>
     <string name="following">Following</string>
     <string name="repository">Repository</string>
+    <string name="repository_total">Repository total</string>
     <string name="following_total">following total</string>
-    <string name="follower_total">follower_total</string>
+    <string name="follower_total">follower total</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
