@@ -28,8 +28,8 @@ class MainViewModel : ViewModel() {
     private val _followingUser = MutableLiveData<List<FollowResponseItem?>>()
     val followingUser : LiveData<List<FollowResponseItem?>> = _followingUser
 
-    private val _followersUser = MutableLiveData<List<FollowResponseItem>>()
-    val followersUser : LiveData<List<FollowResponseItem>> = _followersUser
+    private val _followersUser = MutableLiveData<List<FollowResponseItem?>>()
+    val followersUser : LiveData<List<FollowResponseItem?>> = _followersUser
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -110,7 +110,7 @@ class MainViewModel : ViewModel() {
 
                 override fun onFailure(call: Call<List<FollowResponseItem>>, t: Throwable) {
                     _isLoading.value = false
-                    Log.e(TAG, "onFailure: ${t.message.toString()}")
+                    Log.e(TAG, "onFailure get Following: ${t.message.toString()}")
                 }
             })
         } catch (e : Exception) {
@@ -138,7 +138,7 @@ class MainViewModel : ViewModel() {
 
                 override fun onFailure(call: Call<List<FollowResponseItem>>, t: Throwable) {
                     _isLoading.value = false
-                    Log.e(TAG, "onFailure: ${t.message.toString()}")
+                    Log.e(TAG, "onFailure get Followers: ${t.message.toString()}")
                 }
             })
         } catch (e : Exception) {

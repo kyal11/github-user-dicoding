@@ -17,7 +17,7 @@ interface ApiService {
         @Path("username") username: String
     ): Call<DetailResponse>
 
-    @GET("users/{username}/follower")
+    @GET("users/{username}/followers")
     fun getListFollower(
         @Path("username") username: String
     ): Call<List<FollowResponseItem>>

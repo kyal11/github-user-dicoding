@@ -33,12 +33,8 @@ class FollowFragment : Fragment() {
             position = it.getInt(ARG_POSITION)
             username = it.getString(ARG_USERNAME) ?: ""
         }
-//        if (position == 1) {
-//            binding.testUsername.text = "Get Follower $username"
-//        } else {
-//            binding.testUsername.text = "Get Following $username"
-//        }
-        showRecyclerView(position)
+        showRecyclerView()
+        observeLoadingState()
     }
 
     override fun onDestroyView() {
@@ -46,9 +42,9 @@ class FollowFragment : Fragment() {
         _binding = null
     }
 
-    fun showRecyclerView(position: Int) {
+    fun showRecyclerView() {
         if (position == 1) {
-            viewModel.followersUser(ARG_USERNAME)
+            viewModel.followersUser(UserDetailActivity.username)
             viewModel.followersUser.observe(viewLifecycleOwner) { followersUser ->
                 adapter.submitList(followersUser)
                 binding.rvUser.layoutManager = LinearLayoutManager(requireContext())
@@ -56,12 +52,21 @@ class FollowFragment : Fragment() {
                 binding.rvUser.adapter = adapter
             }
         } else {
-            viewModel.followingUser(ARG_USERNAME)
+            viewModel.followingUser(UserDetailActivity.username)
             viewModel.followingUser.observe(viewLifecycleOwner) { followingUser ->
                 adapter.submitList(followingUser)
                 binding.rvUser.layoutManager = LinearLayoutManager(requireContext())
                 binding.rvUser.setHasFixedSize(true)
                 binding.rvUser.adapter = adapter
+            }
+        }
+    }
+    private fun observeLoadingState() {
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
             }
         }
     }
