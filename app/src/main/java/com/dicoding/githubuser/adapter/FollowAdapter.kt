@@ -6,33 +6,31 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.githubuser.data.response.ItemsItem
+import com.dicoding.githubuser.data.response.FollowResponseItem
 import com.dicoding.githubuser.databinding.ItemUserBinding
 
-class UsersAdapter : ListAdapter<ItemsItem,UsersAdapter.ViewHolder>(DIFF_CALLBACK){
-
-    private lateinit  var onItemClickCallback: UsersAdapter.OnItemClickCallback
+class FollowAdapter : ListAdapter<FollowResponseItem, FollowAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
-            override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FollowResponseItem>() {
+            override fun areItemsTheSame(oldItem: FollowResponseItem, newItem: FollowResponseItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+            override fun areContentsTheSame(oldItem: FollowResponseItem, newItem: FollowResponseItem): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    class ViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: ItemsItem) {
+    inner class ViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(user: FollowResponseItem) {
             binding.apply {
                 tvUsername.text = user.login
                 Glide.with(itemView.context)
                     .load(user.avatarUrl)
                     .skipMemoryCache(true)
-                    .into(binding.ivProfile)
+                    .into(ivProfile)
             }
         }
     }
@@ -45,18 +43,5 @@ class UsersAdapter : ListAdapter<ItemsItem,UsersAdapter.ViewHolder>(DIFF_CALLBAC
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = getItem(position)
         holder.bind(user)
-        holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(
-                user
-            )
-        }
     }
-    interface OnItemClickCallback {
-        fun onItemClicked(data: ItemsItem)
-    }
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
-
 }

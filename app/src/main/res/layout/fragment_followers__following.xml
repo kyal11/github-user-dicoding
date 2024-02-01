@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ui.Followers_Following">
+    tools:context=".ui.FollowFragment">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -23,4 +23,11 @@
         android:layout_height="match_parent"
         android:overScrollMode="never"
         tools:listitem="@layout/item_user" />
+
+    <TextView
+        android:id="@+id/testUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
 </FrameLayout>

@@ -2,13 +2,7 @@ package com.dicoding.githubuser.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class FollowerResponse(
-
-	@field:SerializedName("FollowerResponse")
-	val followerResponse: List<FollowerResponseItem?>? = null
-)
-
-data class FollowerResponseItem(
+data class FollowResponseItem(
 
 	@field:SerializedName("gists_url")
 	val gistsUrl: String? = null,
