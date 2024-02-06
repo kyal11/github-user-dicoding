@@ -1,7 +1,8 @@
 package com.dicoding.githubuser.data.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-
+import kotlinx.parcelize.Parcelize
 data class SearchResponse(
 
     @field:SerializedName("total_count")
@@ -13,7 +14,17 @@ data class SearchResponse(
     @field:SerializedName("items")
     val items: List<ItemsItem?>? = null
 )
+@Parcelize
+data class ListSearch(
+    @field:SerializedName("login") val username: String?= null,
+    @field:SerializedName("name") val name: String? = null,
+    @field:SerializedName("avatar_url") val avatar: String? = null,
+    @field:SerializedName("public_repos") val repository: Int? = null,
+    @field:SerializedName("followers") val follower: Int? = null,
+    @field:SerializedName("following") val following: Int? = null
+) : Parcelable
 
+@Parcelize
 data class ItemsItem(
 
     @field:SerializedName("gists_url")
@@ -44,7 +55,7 @@ data class ItemsItem(
     val subscriptionsUrl: String? = null,
 
     @field:SerializedName("score")
-    val score: Any? = null,
+    val score: String? = null,
 
     @field:SerializedName("received_events_url")
     val receivedEventsUrl: String? = null,
@@ -72,4 +83,4 @@ data class ItemsItem(
 
     @field:SerializedName("organizations_url")
     val organizationsUrl: String? = null
-)
+): Parcelable

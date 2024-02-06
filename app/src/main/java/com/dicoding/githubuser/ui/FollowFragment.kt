@@ -9,12 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubuser.adapter.FollowAdapter
 import com.dicoding.githubuser.databinding.FragmentFollowersFollowingBinding
-import com.dicoding.githubuser.viewmodel.MainViewModel
+import com.dicoding.githubuser.viewmodel.FollowViewModel
+import com.google.android.material.snackbar.Snackbar
+
 
 class FollowFragment : Fragment() {
     private var _binding: FragmentFollowersFollowingBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel by viewModels<FollowViewModel>()
     private val adapter = FollowAdapter()
     private var position: Int = 0
     private var username: String = ""
@@ -22,7 +24,7 @@ class FollowFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFollowersFollowingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,6 +37,16 @@ class FollowFragment : Fragment() {
         }
         showRecyclerView()
         observeLoadingState()
+
+        viewModel.snackbarText.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { snackBarText ->
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    snackBarText,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun onDestroyView() {
