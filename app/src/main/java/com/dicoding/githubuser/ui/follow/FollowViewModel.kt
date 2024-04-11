@@ -1,4 +1,4 @@
-package com.dicoding.githubuser.viewmodel
+package com.dicoding.githubuser.ui.follow
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -27,6 +27,14 @@ class FollowViewModel : ViewModel() {
 
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
+
+    var detaiUsername: String = ""
+        set(value) {
+            field = value
+            Log.e(TAG, "DetailUser : ${detaiUsername}")
+            followersUser(detaiUsername)
+            followingUser(detaiUsername)
+        }
     fun followingUser(username: String) {
         try {
             _isLoading.value = true
@@ -41,8 +49,8 @@ class FollowViewModel : ViewModel() {
                     if (response.isSuccessful && responseBody != null) {
                         _followingUser.value = response.body()
                     } else {
-                        _snackbarText.value = Event(response.message())
-                        Log.e(TAG, "onFailure: ${response.message()}")
+                        _snackbarText.value = Event("Failed to retrieve data")
+                        Log.e(TAG, "onFailure: Failed to retrieve data")
                     }
                 }
 
@@ -70,8 +78,8 @@ class FollowViewModel : ViewModel() {
                     if (response.isSuccessful && responseBody != null) {
                         _followersUser.value = response.body()
                     } else {
-                        _snackbarText.value = Event(response.message())
-                        Log.e(TAG, "onFailure: ${response.message()}")
+                        _snackbarText.value = Event("Failed to retrieve data")
+                        Log.e(TAG, "onFailure: Failed to retrieve data")
                     }
                 }
 

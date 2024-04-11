@@ -1,4 +1,4 @@
-package com.dicoding.githubuser.ui
+package com.dicoding.githubuser.ui.home
 
 import android.content.Intent
 import android.content.res.Configuration
@@ -8,10 +8,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.githubuser.R
 import com.dicoding.githubuser.adapter.UsersAdapter
 import com.dicoding.githubuser.data.response.ItemsItem
 import com.dicoding.githubuser.databinding.ActivityMainBinding
-import com.dicoding.githubuser.viewmodel.SearchViewModel
+import com.dicoding.githubuser.ui.detailUsers.UserDetailActivity
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                 false
             }
         }
+
     }
 
     private fun observeViewModel() {
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 adapter.submitList(listUser)
             } else {
                 binding.rvUser.visibility = View.GONE
-                val message = "User Not Found!"
+                val message = R.string.user_not_found
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
             }
         }
@@ -59,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
         }
-
         viewModel.isLoading.observe(this, this::showLoading)
     }
 

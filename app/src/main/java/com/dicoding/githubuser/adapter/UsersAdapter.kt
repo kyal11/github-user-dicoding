@@ -32,7 +32,7 @@ class UsersAdapter : ListAdapter<ItemsItem,UsersAdapter.ViewHolder>(DIFF_CALLBAC
                 Glide.with(itemView.context)
                     .load(user.avatarUrl)
                     .skipMemoryCache(true)
-                    .into(binding.ivProfile)
+                    .into(binding.ivAvatar)
             }
         }
     }

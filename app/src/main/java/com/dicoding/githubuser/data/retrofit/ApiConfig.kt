@@ -13,7 +13,8 @@ import retrofit2.create
 class ApiConfig {
 
     companion object {
-        private const val BASE_URL = "https://api.github.com/"
+//        private const val BASE_URL = "https://api.github.com/"
+        private const val BASE_URL = BuildConfig.BASE_URL
         private const val apiToken = BuildConfig.API_KEY
 
         fun getApiService() :ApiService {

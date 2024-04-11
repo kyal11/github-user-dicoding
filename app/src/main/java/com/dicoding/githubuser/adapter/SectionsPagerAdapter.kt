@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.dicoding.githubuser.ui.FollowFragment
+import com.dicoding.githubuser.ui.follow.FollowFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
     var username: String = ""
@@ -16,7 +16,6 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
        val fragment = FollowFragment()
         fragment.arguments = Bundle().apply {
             putInt(FollowFragment.ARG_POSITION, position + 1)
-            putString(FollowFragment.ARG_USERNAME, username)
         }
 
         return fragment

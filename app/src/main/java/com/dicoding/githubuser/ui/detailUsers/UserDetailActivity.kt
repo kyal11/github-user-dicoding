@@ -1,4 +1,4 @@
-package com.dicoding.githubuser.ui
+package com.dicoding.githubuser.ui.detailUsers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.dicoding.githubuser.R
 import com.dicoding.githubuser.adapter.SectionsPagerAdapter
 import com.dicoding.githubuser.databinding.ActivityUserDetailBinding
-import com.dicoding.githubuser.viewmodel.DetailViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,7 +22,11 @@ class UserDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        username = intent.getStringExtra(DETAIL_USER).toString()
+
+        if (viewModel.detailUsername.isEmpty()) {
+            username = intent.getStringExtra(DETAIL_USER).toString()
+            viewModel.detailUsername = username
+        }
         showDetail()
         viewModel.isLoading.observe(this, this::showLoading)
 
@@ -57,14 +60,13 @@ class UserDetailActivity : AppCompatActivity() {
     }
 
     fun showDetail() {
-        viewModel.detailUser(username)
         viewModel.userDetail.observe(this) { detailUser ->
             Glide.with(this)
                 .load(detailUser?.avatarUrl)
                 .skipMemoryCache(true)
-                .into(binding.ivAvatar)
+                .into(binding.ivProfil)
             binding.tvUsername.text = detailUser?.login
-            binding.tvName.text = detailUser?.name
+            binding.tvName?.text = detailUser?.name
             binding.tvTotalFollower.text = detailUser?.followers.toString()
             binding.tvTotalFollowing.text = detailUser?.following.toString()
             binding.tvTotalRepository.text = detailUser?.publicRepos.toString()

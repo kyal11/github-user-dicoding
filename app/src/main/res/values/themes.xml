@@ -2,8 +2,34 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.GithubUser" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/green_army</item>
+        <item name="colorOnBackground">@color/primary_green</item>
+        <item name="colorSecondary">@color/secondary_green</item>
+        <item name="cardBackgroundColor">@color/light_gray</item>
+        <item name="tabBackground">@color/light_gray</item>
+        <item name="android:windowBackground">@color/extra_light_gray</item>
+        <item name="tabTextColor">@color/black</item>
     </style>
 
+    <style name="MyCardView" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut</item>
+    </style>
+    <style name="MyCardViewProfil" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.CutProfil</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.Cut" parent="">
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.CutProfil" parent="">
+        <item name="cornerSizeTopRight">15dp</item>
+        <item name="cornerSizeTopLeft">15dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
     <style name="Theme.GithubUser" parent="Base.Theme.GithubUser" />
 </resources>
