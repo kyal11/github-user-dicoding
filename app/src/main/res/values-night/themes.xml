@@ -3,5 +3,12 @@
     <style name="Base.Theme.GithubUser" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="cardBackgroundColor">@color/surface_dark</item>
+        <item name="colorPrimary">@color/green_army</item>
+        <item name="colorOnBackground">@color/primary_green</item>
+        <item name="colorSecondary">@color/secondary_green</item>
+        <item name="tabBackground">@color/surface_dark</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="tabTextColor">@color/white</item>
     </style>
 </resources>

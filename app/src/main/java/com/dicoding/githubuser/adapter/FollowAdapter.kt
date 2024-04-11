@@ -30,7 +30,8 @@ class FollowAdapter : ListAdapter<FollowResponseItem, FollowAdapter.ViewHolder>(
                 Glide.with(itemView.context)
                     .load(user.avatarUrl)
                     .skipMemoryCache(true)
-                    .into(ivProfile)
+                    .into(ivAvatar)
+
             }
         }
     }

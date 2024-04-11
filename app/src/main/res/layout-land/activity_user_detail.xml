@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.UserDetailActivity"
+    tools:context=".ui.detailUsers.UserDetailActivity"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="0dp">
 
@@ -22,20 +22,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_avatar"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_margin="5dp"
-                android:layout_marginTop="4dp"
-                android:src="@mipmap/ic_launcher"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.50"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:srcCompat="@tools:sample/avatars" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_profil"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_launcher" />
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/tv_username"
@@ -47,7 +51,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
 
             <TextView
                 android:id="@+id/tv_name"
@@ -62,10 +66,12 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cvRepository"
                 style="@style/Widget.Material3.CardView.Filled"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                app:cardBackgroundColor="#FFFFFF"
+                android:backgroundTint="?attr/cardBackgroundColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name">
@@ -80,6 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/repository"
+                        android:textStyle="bold"
                         android:textAlignment="center"
                         app:layout_constraintEnd_toStartOf="@+id/tv_total_repository"
                         app:layout_constraintStart_toStartOf="parent"
@@ -106,9 +113,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:backgroundTint="?attr/cardBackgroundColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cvRepository">
@@ -199,6 +207,7 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabsFollow"
+                android:paddingVertical="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -206,14 +215,15 @@
                 android:contentDescription="@string/following"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-
                 app:layout_constraintTop_toTopOf="parent"
-                app:tabTextColor="@color/black" />
+                app:tabIndicatorColor="?attr/tabTextColor"
+                app:tabTextColor="?attr/tabTextColor" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager_follow"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:paddingTop="8dp"
                 android:layout_below="@+id/tabsFollow"
                 android:layout_centerHorizontal="true"
                 app:layout_constraintBottom_toBottomOf="parent"
