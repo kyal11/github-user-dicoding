@@ -1,4 +1,4 @@
-package com.dicoding.githubuser.util
+package com.dicoding.githubuser.utils
 
 open class Event<out T>(private val content: T) {
 

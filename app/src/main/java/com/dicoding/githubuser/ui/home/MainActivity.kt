@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubuser.R
 import com.dicoding.githubuser.adapter.UsersAdapter
-import com.dicoding.githubuser.data.response.ItemsItem
+import com.dicoding.githubuser.data.remote.response.ItemsItem
 import com.dicoding.githubuser.databinding.ActivityMainBinding
 import com.dicoding.githubuser.ui.detailUsers.UserDetailActivity
 import com.google.android.material.snackbar.Snackbar

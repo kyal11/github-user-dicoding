@@ -1,4 +1,4 @@
-package com.dicoding.githubuser.data.retrofit
+package com.dicoding.githubuser.data.remote.retrofit
 
 import com.dicoding.githubuser.BuildConfig
 import okhttp3.Interceptor
@@ -17,7 +17,7 @@ class ApiConfig {
         private const val BASE_URL = BuildConfig.BASE_URL
         private const val apiToken = BuildConfig.API_KEY
 
-        fun getApiService() :ApiService {
+        fun getApiService() : ApiService {
             val loggingInterceptor = if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             } else {

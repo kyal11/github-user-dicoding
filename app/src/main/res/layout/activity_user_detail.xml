@@ -175,6 +175,18 @@
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_favorite_outlined"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:elevation="6dp"
+        android:contentDescription="Add to favorites"
+        android:backgroundTint="?attr/cardBackgroundColor"/>
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyle"
