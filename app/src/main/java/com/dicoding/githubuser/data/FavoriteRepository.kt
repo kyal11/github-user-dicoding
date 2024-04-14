@@ -1,37 +1,50 @@
 package com.dicoding.githubuser.data
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import com.dicoding.githubuser.data.local.room.FavoriteDao
-import com.dicoding.githubuser.data.local.room.FavoriteDatabase
 import com.dicoding.githubuser.data.local.entity.FavoriteUsers
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import com.dicoding.githubuser.utils.AppExecutors
 
-class FavoriteRepository(application: Application) {
-    private val mFavoriteDao: FavoriteDao
-    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+class FavoriteRepository private constructor(
+    private val favoriteDao: FavoriteDao,
+    private val appExecutors: AppExecutors
+) {
 
-    init {
-        val db = FavoriteDatabase.getDatabase(application)
-        mFavoriteDao = db.favoriteDao()
-    }
+    fun getAllFavoriteUsers(): LiveData<List<FavoriteUsers>>  = favoriteDao.getAllFavoriteUsers()
 
-    fun getAllFavoriteUsers(): LiveData<List<FavoriteUsers>> = mFavoriteDao.getAllFavoriteUsers()
+    fun getFavoriteUserByUsername(username: String): LiveData<FavoriteUsers>  = favoriteDao.getFavoriteByUsername(username)
+    fun delFavoriteByUsername(username: String) = favoriteDao.delFavoriteByUsername(username)
 
-    fun getFavoriteUserByUsername(username: String): LiveData<List<FavoriteUsers>> = mFavoriteDao.getFavoriteByUsername(username)
-
-    fun delFavoriteByUsername(username: String): LiveData<List<FavoriteUsers>> = mFavoriteDao.delFavoriteByUsername(username)
     fun insert(favoriteUsers: FavoriteUsers) {
-        executorService.execute { mFavoriteDao.insert(favoriteUsers)}
+        appExecutors.diskID.execute {
+            favoriteDao.insert(favoriteUsers)
+        }
     }
 
     fun update(favoriteUsers: FavoriteUsers) {
-        executorService.execute{ mFavoriteDao.update(favoriteUsers)}
+        appExecutors.diskID.execute {
+            favoriteDao.update(favoriteUsers)
+        }
     }
 
     fun delete(favoriteUsers: FavoriteUsers) {
-        executorService.execute{ mFavoriteDao.delete(favoriteUsers)}
+        appExecutors.diskID.execute {
+            favoriteDao.delete(favoriteUsers)
+        }
     }
 
+    companion object {
+        private var INSTANCE: FavoriteRepository? = null
+
+        fun getInstance(
+            favoriteDao: FavoriteDao,
+            appExecutors: AppExecutors
+        ): FavoriteRepository {
+            return  INSTANCE ?: synchronized(this) {
+                FavoriteRepository(favoriteDao, appExecutors).also {
+                    INSTANCE = it
+                }
+            }
+        }
+    }
 }

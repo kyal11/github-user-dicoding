@@ -4,15 +4,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.dicoding.githubuser.data.FavoriteRepository
+import com.dicoding.githubuser.data.local.entity.FavoriteUsers
 import com.dicoding.githubuser.data.remote.response.DetailResponse
 import com.dicoding.githubuser.data.remote.retrofit.ApiConfig
 import com.dicoding.githubuser.utils.Event
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(private val favoriteRepository: FavoriteRepository): ViewModel() {
 
     companion object {
         private const val TAG = "DetailViewModel"
@@ -32,6 +36,18 @@ class DetailViewModel : ViewModel() {
             field = value
             detailUser(detailUsername)
         }
+
+    fun insertFavoriteUsers(favoriteUsers: FavoriteUsers) {
+        viewModelScope.launch {
+            favoriteRepository.insert(favoriteUsers)
+        }
+    }
+
+    fun deleteFavoriteUsers(favoriteUsers: FavoriteUsers) {
+        viewModelScope.launch {
+            favoriteRepository.delete(favoriteUsers)
+        }
+    }
     fun detailUser(username: String) {
         try {
             _isLoading.value = true

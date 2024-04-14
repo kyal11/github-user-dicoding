@@ -202,6 +202,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:paddingTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -239,7 +240,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="?attr/cardBackgroundColor"
-        android:contentDescription="Add to favorites"
+        android:contentDescription="@string/btn_favorite"
         android:elevation="6dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"

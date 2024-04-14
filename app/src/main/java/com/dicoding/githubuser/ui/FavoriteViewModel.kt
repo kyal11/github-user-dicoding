@@ -2,21 +2,16 @@ package com.dicoding.githubuser.ui
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dicoding.githubuser.data.FavoriteRepository
 import com.dicoding.githubuser.data.local.entity.FavoriteUsers
+import kotlinx.coroutines.launch
 
-class FavoriteViewModel(application: Application) : ViewModel() {
-    private val mFavoriteRepository: FavoriteRepository = FavoriteRepository(application)
+class FavoriteViewModel(private val favoriteRepository: FavoriteRepository) : ViewModel() {
 
-    fun insert(favoriteUsers: FavoriteUsers) {
-        mFavoriteRepository.insert(favoriteUsers)
-    }
-
-    fun update(favoriteUsers: FavoriteUsers) {
-        mFavoriteRepository.update(favoriteUsers)
-    }
-
-    fun delete(favoriteUsers: FavoriteUsers) {
-        mFavoriteRepository.delete(favoriteUsers)
+    fun getAllFavoriteUsers() {
+        viewModelScope.launch {
+            favoriteRepository.getAllFavoriteUsers()
+        }
     }
 }

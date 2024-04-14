@@ -15,7 +15,7 @@
             app:cardElevation="8dp"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:backgroundTint="?attr/colorOnBackground"
+            android:backgroundTint="?attr/cardBackgroundColor"
             app:cardPreventCornerOverlap="false">
 
             <com.google.android.material.card.MaterialCardView
@@ -161,7 +161,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardPreventCornerOverlap="false"
-            android:backgroundTint="?attr/colorSecondary"
+            app:cardElevation="8dp"
+            android:backgroundTint="?attr/cardBackgroundColor"
             style="@style/MyCardViewProfil">
             <androidx.viewpager2.widget.ViewPager2
                 android:paddingTop="8dp"
@@ -185,7 +186,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:elevation="6dp"
-        android:contentDescription="Add to favorites"
+        android:contentDescription="@string/btn_favorite"
         android:backgroundTint="?attr/cardBackgroundColor"/>
     <ProgressBar
         android:id="@+id/progress_bar"

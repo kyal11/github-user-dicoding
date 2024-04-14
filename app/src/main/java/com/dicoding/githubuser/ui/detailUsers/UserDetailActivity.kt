@@ -2,21 +2,28 @@ package com.dicoding.githubuser.ui.detailUsers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dicoding.githubuser.R
 import com.dicoding.githubuser.adapter.SectionsPagerAdapter
+import com.dicoding.githubuser.data.local.entity.FavoriteUsers
 import com.dicoding.githubuser.databinding.ActivityUserDetailBinding
+import com.dicoding.githubuser.ui.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class UserDetailActivity : AppCompatActivity() {
-    private val viewModel by viewModels<DetailViewModel>()
+class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
+    private val viewModel: DetailViewModel by viewModels {
+        ViewModelFactory.getInstance(this)
+    }
     private lateinit var binding: ActivityUserDetailBinding
+    private var favoriteUsers: FavoriteUsers? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +54,7 @@ class UserDetailActivity : AppCompatActivity() {
                 ).show()
             }
         }
+        binding.btnFavorite.setOnClickListener(this)
     }
     companion object {
         const val DETAIL_USER = "detail_user"
@@ -59,8 +67,11 @@ class UserDetailActivity : AppCompatActivity() {
         )
     }
 
+
+
     fun showDetail() {
         viewModel.userDetail.observe(this) { detailUser ->
+            favoriteUsers = detailUser?.login?.let { FavoriteUsers(it, detailUser?.avatarUrl) }
             Glide.with(this)
                 .load(detailUser?.avatarUrl)
                 .skipMemoryCache(true)
@@ -76,4 +87,19 @@ class UserDetailActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btn_favorite -> {
+                favoriteUsers?.let {
+                    viewModel.insertFavoriteUsers(it)
+                }
+                Log.e("Favorite", "DATA: ${favoriteUsers}")
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        favoriteUsers = null
+        super.onDestroy()
+    }
 }

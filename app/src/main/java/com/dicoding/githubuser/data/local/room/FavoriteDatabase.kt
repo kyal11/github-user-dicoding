@@ -19,7 +19,7 @@ abstract class FavoriteDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(FavoriteDatabase::class.java) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        FavoriteDatabase::class.java, "favorite_users_databse")
+                        FavoriteDatabase::class.java, "favorite_users_database")
                         .build()
                 }
             }
