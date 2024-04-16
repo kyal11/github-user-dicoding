@@ -23,13 +23,17 @@ class DetailViewModel(private val favoriteRepository: FavoriteRepository): ViewM
     }
 
     private val _userDetail = MutableLiveData<DetailResponse?>()
-    val userDetail : LiveData<DetailResponse?> = _userDetail
+    val userDetail: LiveData<DetailResponse?> = _userDetail
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
+
+    // LiveData for favorite user
+    private val _favoriteUser = MutableLiveData<FavoriteUsers?>()
+    val favoriteUser: LiveData<FavoriteUsers?> = _favoriteUser
 
     var detailUsername: String = ""
         set(value) {
@@ -43,11 +47,20 @@ class DetailViewModel(private val favoriteRepository: FavoriteRepository): ViewM
         }
     }
 
+    fun getFavoriteByUsername(username: String) {
+        viewModelScope.launch {
+            favoriteRepository.getFavoriteUserByUsername(username).observeForever { favoriteUser ->
+                _favoriteUser.value = favoriteUser
+            }
+        }
+    }
+
     fun deleteFavoriteUsers(favoriteUsers: FavoriteUsers) {
         viewModelScope.launch {
             favoriteRepository.delete(favoriteUsers)
         }
     }
+
     fun detailUser(username: String) {
         try {
             _isLoading.value = true

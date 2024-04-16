@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dicoding.githubuser.R
@@ -17,6 +18,7 @@ import com.dicoding.githubuser.ui.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
 
 class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
     private val viewModel: DetailViewModel by viewModels {
@@ -24,6 +26,7 @@ class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
     private lateinit var binding: ActivityUserDetailBinding
     private var favoriteUsers: FavoriteUsers? = null
+    private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +37,9 @@ class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
             username = intent.getStringExtra(DETAIL_USER).toString()
             viewModel.detailUsername = username
         }
+
         showDetail()
         viewModel.isLoading.observe(this, this::showLoading)
-
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         val viewPager: ViewPager2 = binding.viewPagerFollow
         viewPager.adapter = sectionsPagerAdapter
@@ -67,8 +70,6 @@ class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
         )
     }
 
-
-
     fun showDetail() {
         viewModel.userDetail.observe(this) { detailUser ->
             favoriteUsers = detailUser?.login?.let { FavoriteUsers(it, detailUser?.avatarUrl) }
@@ -82,21 +83,41 @@ class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
             binding.tvTotalFollowing.text = detailUser?.following.toString()
             binding.tvTotalRepository.text = detailUser?.publicRepos.toString()
         }
+
+        viewModel.getFavoriteByUsername(username)
+        viewModel.favoriteUser.observe(this){ favoriteUser ->
+            isFavorite = favoriteUser != null
+            Log.e("Favorite view model", "DATA: $isFavorite")
+            isFavoriteUser(isFavorite)
+        }
     }
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    private fun isFavoriteUser(favorite: Boolean) {
+        if (favorite) {
+            binding.btnFavorite.setImageResource(R.drawable.ic_favorite_filled)
+        } else {
+            binding.btnFavorite.setImageResource(R.drawable.ic_favorite_outlined)
+        }
+    }
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_favorite -> {
-                favoriteUsers?.let {
-                    viewModel.insertFavoriteUsers(it)
+                if (isFavorite) {
+                    favoriteUsers?.let {
+                        viewModel.deleteFavoriteUsers(it)
+                    }
+                } else {
+                    favoriteUsers?.let {
+                        viewModel.insertFavoriteUsers(it)
+                    }
                 }
-                Log.e("Favorite", "DATA: ${favoriteUsers}")
             }
         }
     }
+
 
     override fun onDestroy() {
         favoriteUsers = null

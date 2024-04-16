@@ -4,16 +4,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.githubuser.data.FavoriteRepository
 import com.dicoding.githubuser.data.remote.response.ItemsItem
 import com.dicoding.githubuser.data.remote.response.SearchResponse
 import com.dicoding.githubuser.data.remote.retrofit.ApiConfig
 import com.dicoding.githubuser.utils.Event
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
 
-class SearchViewModel : ViewModel() {
+class MainViewModel(private val favoriteRepository: FavoriteRepository) : ViewModel() {
     companion object {
         private const val TAG = "SearchViewModel"
     }
@@ -27,6 +29,7 @@ class SearchViewModel : ViewModel() {
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
 
+    val themeSetting: Flow<Boolean> = favoriteRepository.getThemeSetting()
     init {
         searchUser()
     }
